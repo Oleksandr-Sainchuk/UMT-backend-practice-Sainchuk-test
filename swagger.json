@@ -1,0 +1,83 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "UMT Fireplace API",
+    "version": "1.0.0",
+    "description": "Backend API for the fireplace catalogue frontend"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001",
+      "description": "Local development"
+    }
+  ],
+  "paths": {
+    "/api/fireplace": {
+      "get": {
+        "summary": "Get paginated fireplace (product) list",
+        "tags": ["Fireplace"],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1, "default": 1 }
+          },
+          {
+            "name": "per-page",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 12 }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": { "type": "string", "enum": ["standart", "top"] }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated product list with data and meta"
+          }
+        }
+      }
+    },
+    "/api/feedbacks": {
+      "get": {
+        "summary": "Get all feedbacks",
+        "tags": ["Feedbacks"],
+        "responses": {
+          "200": {
+            "description": "Array of feedback items"
+          }
+        }
+      }
+    },
+    "/api/orders": {
+      "post": {
+        "summary": "Create a new order",
+        "tags": ["Orders"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "phone", "address"],
+                "properties": {
+                  "name": { "type": "string", "example": "Максим" },
+                  "phone": { "type": "string", "example": "+380991234567" },
+                  "address": { "type": "string", "example": "вул. Гетьмана Мазепи 15, Львів" },
+                  "comment": { "type": "string", "example": "Ваш коментар..." },
+                  "productId": { "type": ["integer", "null"], "example": 1, "description": "Product id when ordering from catalogue; null for general orders" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Order created" },
+          "400": { "description": "Validation error" }
+        }
+      }
+    }
+  }
+}
