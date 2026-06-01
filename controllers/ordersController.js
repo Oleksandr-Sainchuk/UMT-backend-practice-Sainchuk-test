@@ -4,7 +4,7 @@ import { asyncHandler } from "../helpers/asyncHandler.js";
 import * as orderModel from "../models/orderModel.js";
 
 export const createOrder = asyncHandler(async (req, res) => {
-  const order = orderModel.create(req.validatedBody);
+  const order = await orderModel.create(req.validatedBody);
 
   res.status(HTTP_STATUS.CREATED).json({
     message: apiMessages.orderCreated,

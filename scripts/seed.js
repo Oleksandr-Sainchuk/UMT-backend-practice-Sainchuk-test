@@ -1,20 +1,22 @@
-import { copyFileSync, existsSync, mkdirSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import "dotenv/config";
+
+import prisma from "../helpers/prisma.js";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const dataDir = path.resolve(__dirname, "../data");
-const dbPath = path.join(dataDir, "db.json");
-const seedPath = path.join(dataDir, "db.seed.json");
+const seedPath = path.join(__dirname, "../data/db.seed.json");
+const seed = JSON.parse(readFileSync(seedPath, "utf8"));
 
-if (!existsSync(dataDir)) {
-  mkdirSync(dataDir, { recursive: true });
-}
+await prisma.order.deleteMany();
+await prisma.feedback.deleteMany();
+await prisma.product.deleteMany();
 
-if (!existsSync(seedPath)) {
-  console.error("Missing data/db.seed.json — add a seed file or copy db.json manually.");
-  process.exit(1);
-}
+await prisma.product.createMany({ data: seed.products });
+await prisma.feedback.createMany({ data: seed.feedbacks });
 
-copyFileSync(seedPath, dbPath);
-console.log(`Database written to ${dbPath}`);
+console.log(`Seeded ${seed.products.length} products and ${seed.feedbacks.length} feedbacks.`);
+
+await prisma.$disconnect();

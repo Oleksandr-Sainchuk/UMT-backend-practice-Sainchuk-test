@@ -1,8 +1,3 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
 function parseCorsOrigins() {
   const defaults =
     process.env.NODE_ENV === "production"
@@ -21,7 +16,6 @@ const config = {
   port: Number(process.env.PORT) || 3001,
   nodeEnv: process.env.NODE_ENV ?? "development",
   corsOrigins: parseCorsOrigins(),
-  dbFilePath: path.resolve(__dirname, "data/db.json"),
 };
 
 export default config;

@@ -5,7 +5,7 @@ import * as fireplaceModel from "../models/fireplaceModel.js";
 export const getFireplaceList = asyncHandler(async (req, res) => {
   const { page, "per-page": perPage, category } = req.validatedQuery;
 
-  const result = fireplaceModel.findPaginated({
+  const result = await fireplaceModel.findPaginated({
     page,
     perPage,
     category,

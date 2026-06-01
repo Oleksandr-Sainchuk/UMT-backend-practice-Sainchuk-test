@@ -1,14 +1,14 @@
 import { PRODUCT_CATEGORIES } from "../constants/categories.js";
 import { buildPaginatedResponse } from "../helpers/pagination.js";
-import { loadDb } from "../helpers/jsonDb.js";
+import prisma from "../helpers/prisma.js";
 
-export function findPaginated({ page, perPage, category }) {
-  const db = loadDb();
-  let products = db.products ?? [];
+export async function findPaginated({ page, perPage, category }) {
+  const where = category && PRODUCT_CATEGORIES.includes(category) ? { category } : {};
 
-  if (category && PRODUCT_CATEGORIES.includes(category)) {
-    products = products.filter((product) => product.category === category);
-  }
+  const products = await prisma.product.findMany({
+    where,
+    orderBy: { id: "asc" },
+  });
 
   return buildPaginatedResponse(products, { page, perPage });
 }

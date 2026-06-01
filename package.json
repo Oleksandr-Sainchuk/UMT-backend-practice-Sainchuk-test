@@ -6,26 +6,34 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon --watch .env --watch data server.js",
-    "seed": "node scripts/seed.js",
+    "dev": "nodemon --watch .env server.js",
+    "postinstall": "prisma generate",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f postgres",
+    "seed": "prisma db seed",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com-Oleksandr-Sainchuk:Oleksandr-Sainchuk/UMT-backend-practice-Sainchuk-test.git"
   },
-  "keywords": [],
+  "keywords": [ ],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
     "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "joi": "^18.2.1",
     "morgan": "^1.10.1",
+    "pg": "^8.21.0",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "prisma": "^7.8.0",
+    "dotenv": "^17.4.2"
   }
 }

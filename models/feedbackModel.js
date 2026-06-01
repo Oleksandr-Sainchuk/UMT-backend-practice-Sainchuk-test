@@ -1,8 +1,9 @@
-import { loadDb } from "../helpers/jsonDb.js";
+import prisma from "../helpers/prisma.js";
 
-export function findAll() {
-  const db = loadDb();
-  const feedbacks = db.feedbacks ?? [];
+export async function findAll() {
+  const feedbacks = await prisma.feedback.findMany({
+    orderBy: { id: "asc" },
+  });
 
   return feedbacks.map((feedback) => ({
     ...feedback,
