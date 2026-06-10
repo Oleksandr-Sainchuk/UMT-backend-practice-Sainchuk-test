@@ -13,5 +13,16 @@ export const commonJoiMessages = {
 export const apiMessages = {
   notFound: "Маршрут не знайдено",
   serverError: "Сталася помилка на сервері. Спробуйте пізніше",
+  fireplaceNotFound: "Камін не знайдено",
+  orderNotFound: "Замовлення не знайдено",
+  feedbackNotFound: "Відгук не знайдено",
+  fireplaceCreated: "Камін успішно створено",
+  fireplaceUpdated: "Камін успішно оновлено",
+  fireplaceDeleted: "Камін успішно видалено",
   orderCreated: "Замовлення успішно створено",
+  orderUpdated: "Замовлення успішно оновлено",
+  orderDeleted: "Замовлення успішно видалено",
+  feedbackCreated: "Відгук успішно створено",
+  feedbackUpdated: "Відгук успішно оновлено",
+  feedbackDeleted: "Відгук успішно видалено",
 };

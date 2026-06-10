@@ -1,6 +1,11 @@
 import { fireplace as c } from "../../controllers/index.js";
-import { createRouter, validateQuery } from "../../helpers/index.js";
-import { getFireplaceQuerySchema } from "../../schemas/index.js";
+import { createRouter, validateBody, validateParams, validateQuery } from "../../helpers/index.js";
+import {
+  createFireplaceSchema,
+  getFireplaceQuerySchema,
+  idParamSchema,
+  updateFireplaceSchema,
+} from "../../schemas/index.js";
 
 const fireplaceRouterOptions = [
   {
@@ -8,6 +13,30 @@ const fireplaceRouterOptions = [
     route: "/",
     middlewares: [validateQuery(getFireplaceQuerySchema)],
     controller: c.getFireplaceList,
+  },
+  {
+    method: "get",
+    route: "/:id",
+    middlewares: [validateParams(idParamSchema)],
+    controller: c.getFireplaceById,
+  },
+  {
+    method: "post",
+    route: "/",
+    middlewares: [validateBody(createFireplaceSchema)],
+    controller: c.createFireplace,
+  },
+  {
+    method: "patch",
+    route: "/:id",
+    middlewares: [validateParams(idParamSchema), validateBody(updateFireplaceSchema)],
+    controller: c.updateFireplace,
+  },
+  {
+    method: "delete",
+    route: "/:id",
+    middlewares: [validateParams(idParamSchema)],
+    controller: c.deleteFireplace,
   },
 ];
 
