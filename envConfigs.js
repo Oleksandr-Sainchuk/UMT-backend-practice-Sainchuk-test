@@ -16,6 +16,12 @@ const config = {
   port: Number(process.env.PORT) || 3001,
   nodeEnv: process.env.NODE_ENV ?? "development",
   corsOrigins: parseCorsOrigins(),
+  cloudinary: {
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    apiKey: process.env.CLOUDINARY_API_KEY,
+    apiSecret: process.env.CLOUDINARY_API_SECRET,
+    folder: process.env.CLOUDINARY_FOLDER ?? "fireplaces",
+  },
 };
 
 export default config;

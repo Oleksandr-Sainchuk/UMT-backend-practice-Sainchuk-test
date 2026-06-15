@@ -59,8 +59,18 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/FireplaceInput" }
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [ "picture", "title", "desc", "price", "category" ],
+                "properties": {
+                  "picture": { "type": "string", "format": "binary", "description": "Image file (max 6 MB)" },
+                  "title": { "type": "string", "example": "Лофт Кортен" },
+                  "desc": { "type": "string", "example": "Футуристичний білий біокамін з гладким вигнутим корпусом, створює динамічні лінії та чистоту простору." },
+                  "price": { "type": "string", "example": "33600" },
+                  "category": { "type": "string", "enum": [ "standart", "top" ], "example": "standart" }
+                }
+              }
             }
           }
         },
@@ -87,8 +97,17 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/FireplaceUpdate" }
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "picture": { "type": "string", "format": "binary", "description": "New image file (max 6 MB)" },
+                  "title": { "type": "string" },
+                  "desc": { "type": "string" },
+                  "price": { "type": "string" },
+                  "category": { "type": "string", "enum": [ "standart", "top" ] }
+                }
+              }
             }
           }
         },

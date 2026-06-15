@@ -1,5 +1,6 @@
 import { fireplace as c } from "../../controllers/index.js";
 import { createRouter, validateBody, validateParams, validateQuery } from "../../helpers/index.js";
+import { upload } from "../../middlewares/multerUpload.js";
 import {
   createFireplaceSchema,
   getFireplaceQuerySchema,
@@ -23,13 +24,13 @@ const fireplaceRouterOptions = [
   {
     method: "post",
     route: "/",
-    middlewares: [validateBody(createFireplaceSchema)],
+    middlewares: [upload.single("picture"), validateBody(createFireplaceSchema)],
     controller: c.createFireplace,
   },
   {
     method: "patch",
     route: "/:id",
-    middlewares: [validateParams(idParamSchema), validateBody(updateFireplaceSchema)],
+    middlewares: [upload.single("picture"), validateParams(idParamSchema), validateBody(updateFireplaceSchema)],
     controller: c.updateFireplace,
   },
   {

@@ -17,7 +17,7 @@ export async function findPaginated({ page, perPage, category }) {
 
   const products = await prisma.product.findMany({
     where,
-    orderBy: { id: "asc" },
+    orderBy: { id: "desc" },
     skip,
     take,
   });

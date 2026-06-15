@@ -12,8 +12,7 @@ export const getFireplaceQuerySchema = Joi.object({
     .label("Категорія"),
 }).messages(commonJoiMessages);
 
-const fireplaceFields = {
-  img: Joi.string().trim().uri().required().label("Зображення"),
+const fireplaceTextFields = {
   title: Joi.string().trim().min(2).max(200).required().label("Назва"),
   desc: Joi.string().trim().min(10).max(1000).required().label("Опис"),
   price: Joi.string().trim().min(1).max(20).required().label("Ціна"),
@@ -23,14 +22,11 @@ const fireplaceFields = {
     .label("Категорія"),
 };
 
-export const createFireplaceSchema = Joi.object(fireplaceFields).messages(commonJoiMessages);
+export const createFireplaceSchema = Joi.object(fireplaceTextFields).messages(commonJoiMessages);
 
 export const updateFireplaceSchema = Joi.object({
-  img: fireplaceFields.img.optional(),
-  title: fireplaceFields.title.optional(),
-  desc: fireplaceFields.desc.optional(),
-  price: fireplaceFields.price.optional(),
-  category: fireplaceFields.category.optional(),
-})
-  .min(1)
-  .messages(commonJoiMessages);
+  title: fireplaceTextFields.title.optional(),
+  desc: fireplaceTextFields.desc.optional(),
+  price: fireplaceTextFields.price.optional(),
+  category: fireplaceTextFields.category.optional(),
+}).messages(commonJoiMessages);
