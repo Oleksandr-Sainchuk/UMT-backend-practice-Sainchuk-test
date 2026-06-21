@@ -12,6 +12,10 @@ import swaggerDocument from "./swagger.json" with { type: "json" };
 
 const app = express();
 
+app.get("/health", (_req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
 const loggerFormat = app.get("env") === "development" ? "dev" : "short";
 
 app.use(morgan(loggerFormat));
